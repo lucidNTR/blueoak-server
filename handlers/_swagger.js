@@ -504,8 +504,11 @@ function validateRequestParameters(req, data, swaggerDoc, logger, callback) {
             } else if (typeof req.query[parameter.name] !== 'undefined') {
                 result = swaggerUtil.validateParameterType(parameter, req.query[parameter.name]);
                 if (!result.valid) {
-                    error = _createRequestValidationError(util.format('Error validating query parameter %s',
-                            parameter.name), parameter, result.errors);
+                    error = _createRequestValidationError(
+                        util.format('Error validating query parameter %s', parameter.name),
+                        parameter,
+                        result.errors
+                    );
                 }
             }
             break;
@@ -521,8 +524,11 @@ function validateRequestParameters(req, data, swaggerDoc, logger, callback) {
             } else if (typeof req.get(parameter.name) !== 'undefined') {
                 result = swaggerUtil.validateParameterType(parameter, req.get(parameter.name));
                 if (!result.valid) {
-                    error = _createRequestValidationError(util.format('Error validating %s header', parameter.name),
-                            parameter, result.errors);
+                    error = _createRequestValidationError(
+                        util.format('Error validating %s header', parameter.name),
+                        parameter,
+                        result.errors
+                    );
                 }
             }
             break;
@@ -530,8 +536,11 @@ function validateRequestParameters(req, data, swaggerDoc, logger, callback) {
         case 'path':
             result = swaggerUtil.validateParameterType(parameter, req.params[parameter.name]);
             if (!result.valid) {
-                error = _createRequestValidationError(util.format('Error validating %s path parameter', parameter.name),
-                        parameter, result.errors);
+                error = _createRequestValidationError(
+                    util.format('Error validating %s path parameter', parameter.name),
+                    parameter,
+                    result.errors
+                );
             }
             break;
 
@@ -563,8 +572,10 @@ function validateRequestParameters(req, data, swaggerDoc, logger, callback) {
                 result = swaggerUtil.validateParameterType(parameter, req.body[parameter.name]);
                 if (!result.valid) {
                     error = _createRequestValidationError(
-                            util.format('Error validating form parameter %s', parameter.name),
-                        parameter, result.errors);
+                        util.format('Error validating form parameter %s', parameter.name),
+                        parameter,
+                        result.errors
+                    );
                 }
             }
             break;
@@ -720,7 +731,7 @@ function wrapCall(obj, funcName, toCall) {
 
 //swagger paths use {blah} while express uses :blah
 function convertPathToExpress(swaggerPath) {
-    var reg = /\{([^\}]+)\}/g;  //match all {...}
+    var reg = /{([^}]+)}/g;  //match all {...}
     swaggerPath = swaggerPath.replace(reg, ':$1');
     return swaggerPath;
 }
